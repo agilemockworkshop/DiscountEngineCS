@@ -49,6 +49,16 @@ namespace UnitTestPurchaseOrder
     }
 
     [TestClass]
+    public class UnitTestItemRepo
+    {
+        [TestMethod]
+        public void TestRepoGetItem()
+        {
+            
+        }
+    }
+
+    [TestClass]
     public class UnitTestOrderItem
     {
         [TestMethod]
