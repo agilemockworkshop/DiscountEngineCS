@@ -63,63 +63,69 @@ namespace UnitTestDiscountEngineCS
         public void TestOderWithOneItem()
         {
             // Setup
-            List<cItem> items = new List<cItem>();
-            items.Add(new cItem("Shirt-123-456", 5));
+            PurchaseOrder po = new PurchaseOrder();
+            po.AddItem(new cItem("Shirt-123-456", 5));
 
-            DiscountEngine de = new DiscountEngine(o);
+            DiscountEngine de = new DiscountEngine();
 
             // Exercise
-            Double totalprice = de.Compute(items);
+            Double totalprice = de.Compute(ref po);
 
             // Verify
             Assert.AreEqual(4.75, totalprice);
-            Assert.AreEqual(items[0].DiscountType, "Progressive Discount");
-            Assert.AreEqual(items[0].Discount, 0.25);
+            Assert.AreEqual(po.GetOrders()[0].discountScheme, "Progressive Discount");
+            Assert.AreEqual(po.GetOrders()[0].discountAmt, 0.25);
         }
 
         [TestMethod]
         public void TestOderWithTwoItems()
         {
             // Setup
-            List<cItem> items = new List<cItem>();
-            items.Add(new cItem("Shirt-123-456", 5));
-            items.Add(new cItem("Shirt-123-456", 5));
+            PurchaseOrder po = new PurchaseOrder();
+            po.AddItem(new cItem("Shirt-123-456", 5));
+            po.AddItem(new cItem("Shirt-123-456", 5));
 
-            DiscountEngine de = new DiscountEngine(o);
+            DiscountEngine de = new DiscountEngine();
 
             // Exercise
-            Double totalprice = de.Compute(items);
+            Double totalprice = de.Compute(ref po);
 
             // Verify
-            Assert.AreEqual(8, totalprice);
-            Assert.AreEqual(items[0].DiscountType, "Progressive Discount");
-            Assert.AreEqual(items[0].Discount, 1);
-            Assert.AreEqual(items[1].DiscountType, "Progressive Discount");
-            Assert.AreEqual(items[1].Discount, 1);
+            Assert.AreEqual(8.50, totalprice);
+            Assert.AreEqual(po.GetOrders()[0].discountScheme, "Multi-item Discount");
+            Assert.AreEqual(po.GetOrders()[0].discountAmt, 0);
+            Assert.AreEqual(po.GetOrders()[1].discountScheme, "Multi-item Discount");
+            Assert.AreEqual(po.GetOrders()[1].discountAmt, 1.50);
         }
 
         [TestMethod]
         public void TestOderWithFiveItems()
         {
             // Setup
-            List<cItem> items = new List<cItem>();
-            items.Add(new cItem("Woman-Socks-123-456", 15));
-            items.Add(new cItem("Woman-Socks-123-456", 15));
-            items.Add(new cItem("Woman-Socks-123-456", 15));
-            items.Add(new cItem("Shirt-222-111", 5));
-            items.Add(new cItem("Shirt-123-456", 5));
+            PurchaseOrder po = new PurchaseOrder();
+            po.AddItem(new cItem("Woman-Socks-123-456", 15));
+            po.AddItem(new cItem("Woman-Socks-123-456", 15));
+            po.AddItem(new cItem("Woman-Socks-123-456", 15));
+            po.AddItem(new cItem("Shirt-222-111", 5));
+            po.AddItem(new cItem("Shirt-123-456", 5));
 
-            DiscountEngine de = new DiscountEngine(o);
+            DiscountEngine de = new DiscountEngine();
 
             // Exercise
-            Double totalprice = de.Compute(items);
+            Double totalprice = de.Compute(ref po);
 
             // Verify
-            Assert.AreEqual(4.50, totalprice);
-            Assert.AreEqual(items[0].DiscountType, "Progressive Discount");
-            Assert.AreEqual(items[0].Discount, 1);
-            Assert.AreEqual(items[1].DiscountType, "Progressive Discount");
-            Assert.AreEqual(items[1].Discount, 1);
+            Assert.AreEqual(35.00, totalprice);
+            Assert.AreEqual(po.GetOrders()[0].discountScheme, "Bundling Discount");
+            Assert.AreEqual(po.GetOrders()[0].discountAmt, 6.67);
+            Assert.AreEqual(po.GetOrders()[1].discountScheme, "Bundling Discount");
+            Assert.AreEqual(po.GetOrders()[1].discountAmt, 6.67);
+            Assert.AreEqual(po.GetOrders()[2].discountScheme, "Bundling Discount");
+            Assert.AreEqual(po.GetOrders()[2].discountAmt, 6.67);
+            Assert.AreEqual(po.GetOrders()[3].discountScheme, "");
+            Assert.AreEqual(po.GetOrders()[3].discountAmt, 0);
+            Assert.AreEqual(po.GetOrders()[4].discountScheme, "");
+            Assert.AreEqual(po.GetOrders()[4].discountAmt, 0);
         }
     }
 }
