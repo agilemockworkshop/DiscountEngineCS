@@ -18,12 +18,15 @@ namespace DiscountEngineCS
     public class cItem
     {
         public String itemNumber { get; set; }
-        public double itemPrice { get; set; }
+        public double itemOriginalPrice { get; set; }
 
-        public cItem(String number, double price)
+        public double discountAmt { get; set; }
+        public String discountScheme { get; set; }
+
+        public cItem(String number, double originalPrice)
         {
             this.itemNumber = number;
-            this.itemPrice = price;
+            this.itemOriginalPrice = originalPrice;
         }
 
     }
@@ -45,6 +48,17 @@ namespace DiscountEngineCS
         public void AddItem(cItem item)
         {
             poList.Add(item);
+        }
+
+        public void RemoveItem(String itemNumber)
+        {
+            for(int i = 0; i < poList.Count; i++)
+            {
+                if(poList.ElementAt(i).itemNumber.Equals(itemNumber))
+                {
+                    poList.RemoveAt(i);
+                }
+            }
         }
     }
 }
