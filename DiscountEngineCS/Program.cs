@@ -61,4 +61,17 @@ namespace DiscountEngineCS
             }
         }
     }
+
+    public class DiscountEngine
+    {
+        public DiscountEngine()
+        {
+
+        }
+
+        public double Compute(ref PurchaseOrder o)
+        {
+            return 0;
+        }
+    }
 }
