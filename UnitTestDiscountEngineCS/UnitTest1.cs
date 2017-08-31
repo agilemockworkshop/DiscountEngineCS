@@ -26,6 +26,7 @@ namespace UnitTestPurchaseOrder
             Assert.IsTrue(order.GetOrders().Count == 0);
         }
 
+        [TestMethod]
         public void TestOrderSingleItem()
         {
             PurchaseOrder order = new PurchaseOrder();
@@ -34,6 +35,7 @@ namespace UnitTestPurchaseOrder
             Assert.IsTrue(order.GetOrders().Count == 1);
         }
 
+        
         [TestMethod]
         public void TestAddInvalidNumber()
         {
