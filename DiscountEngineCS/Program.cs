@@ -10,6 +10,7 @@ namespace DiscountEngineCS
     {
         static void Main(string[] args)
         {
+
         }
     }
 }
